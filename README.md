@@ -80,11 +80,11 @@ Next, configure valid [AWS Credentials](https://docs.aws.amazon.com/cli/v1/userg
 
 #### MiniMax Models
 
-The system supports [MiniMax](https://www.minimax.io/) models (`MiniMax-M2.7`, `MiniMax-M2.7-highspeed`) via the OpenAI-compatible API. Set the `MINIMAX_API_KEY` environment variable:
+The system supports [MiniMax](https://www.minimax.io/) models (`MiniMax-M3` (default), `MiniMax-M2.7`, `MiniMax-M2.7-highspeed`) via the OpenAI-compatible API. Set the `MINIMAX_API_KEY` environment variable:
 ```bash
 export MINIMAX_API_KEY="YOUR_MINIMAX_KEY_HERE"
 ```
-MiniMax M2.7 offers a 204K context window. Temperature is automatically clamped to the supported range (0.0, 1.0].
+MiniMax M3 offers a 512K context window with up to 128K max output and image input support. Temperature is automatically clamped to the supported range (0.0, 1.0].
 
 #### Semantic Scholar API (Literature Search)
 

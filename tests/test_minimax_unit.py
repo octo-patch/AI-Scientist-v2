@@ -14,6 +14,10 @@ import pytest
 class TestIsMiniMaxModel:
     """Tests for _is_minimax_model helper."""
 
+    def test_minimax_m3(self):
+        from ai_scientist.llm import _is_minimax_model
+        assert _is_minimax_model("MiniMax-M3") is True
+
     def test_minimax_m27(self):
         from ai_scientist.llm import _is_minimax_model
         assert _is_minimax_model("MiniMax-M2.7") is True
@@ -120,6 +124,10 @@ class TestStripThinkTags:
 class TestAvailableLLMs:
     """Tests that MiniMax models are registered in AVAILABLE_LLMS."""
 
+    def test_minimax_m3_in_list(self):
+        from ai_scientist.llm import AVAILABLE_LLMS
+        assert "MiniMax-M3" in AVAILABLE_LLMS
+
     def test_minimax_m27_in_list(self):
         from ai_scientist.llm import AVAILABLE_LLMS
         assert "MiniMax-M2.7" in AVAILABLE_LLMS
@@ -128,6 +136,11 @@ class TestAvailableLLMs:
         from ai_scientist.llm import AVAILABLE_LLMS
         assert "MiniMax-M2.7-highspeed" in AVAILABLE_LLMS
 
+    def test_minimax_m3_listed_first(self):
+        from ai_scientist.llm import AVAILABLE_LLMS
+        minimax_models = [m for m in AVAILABLE_LLMS if m.startswith("MiniMax-")]
+        assert minimax_models[0] == "MiniMax-M3"
+
 
 # ---------------------------------------------------------------------------
 # Tests for create_client (llm.py)
@@ -135,6 +148,13 @@ class TestAvailableLLMs:
 
 class TestCreateClient:
     """Tests for create_client with MiniMax models."""
+
+    @patch.dict(os.environ, {"MINIMAX_API_KEY": "test-key-123"})
+    def test_creates_openai_client_for_m3(self):
+        from ai_scientist.llm import create_client
+        client, model = create_client("MiniMax-M3")
+        assert model == "MiniMax-M3"
+        assert client.base_url.host == "api.minimax.io"
 
     @patch.dict(os.environ, {"MINIMAX_API_KEY": "test-key-123"})
     def test_creates_openai_client_for_minimax(self):

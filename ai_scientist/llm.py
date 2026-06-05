@@ -22,7 +22,7 @@ def _clamp_temperature_minimax(temperature: float) -> float:
 
 
 def _strip_think_tags(content: str) -> str:
-    """Strip <think>...</think> tags from MiniMax M2.7 responses."""
+    """Strip <think>...</think> tags from MiniMax responses."""
     if content and "<think>" in content:
         return re.sub(r"<think>.*?</think>\s*", "", content, flags=re.DOTALL).strip()
     return content
@@ -88,6 +88,7 @@ AVAILABLE_LLMS = [
     "ollama/deepseek-r1:70b",
     "ollama/deepseek-r1:671b",
     # MiniMax models
+    "MiniMax-M3",
     "MiniMax-M2.7",
     "MiniMax-M2.7-highspeed",
 ]

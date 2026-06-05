@@ -11,7 +11,7 @@ def _clamp_temperature_minimax(temperature: float) -> float:
     return max(0.01, min(1.0, temperature))
 
 def _strip_think_tags(content: str) -> str:
-    """Strip <think>...</think> tags from MiniMax M2.7 responses."""
+    """Strip <think>...</think> tags from MiniMax responses."""
     if content and "<think>" in content:
         return re.sub(r"<think>.*?</think>\s*", "", content, flags=re.DOTALL).strip()
     return content
